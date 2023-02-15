@@ -525,8 +525,10 @@ end
 doctest_replace!(docsnode::DocsNode) = foreach(doctest_replace!, docsnode.mdasts)
 function doctest_replace!(block::MarkdownAST.CodeBlock)
     startswith(block.info, "jldoctest") || return
+    @show "test"
     # suppress output for `#output`-style doctests with `output=false` kwarg
     if occursin(r"^# output$"m, block.code) && occursin(r";.*output\h*=\h*false", block.info)
+        @show block.code
         input = first(split(block.code, "# output\n", limit = 2))
         block.code = rstrip(input)
     end
