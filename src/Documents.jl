@@ -477,8 +477,8 @@ function doctest_replace!(doc::Documents.Document)
     end
 end
 function doctest_replace!(block::Markdown.Code)
-    @show block
-    @show fieldnames(block)
+    @show block.code
+    @show block.language
     startswith(block.language, "jldoctest") || return false
     @show "passed language test"
     # suppress output for `#output`-style doctests with `output=false` kwarg
