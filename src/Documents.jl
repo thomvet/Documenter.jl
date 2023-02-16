@@ -482,6 +482,8 @@ function doctest_replace!(block::Markdown.Code)
     startswith(block.language, "jldoctest") || return false
     @show "passed language test"
     # suppress output for `#output`-style doctests with `output=false` kwarg
+    @show occursin(r"^# output$"m, block.code) 
+    @show occursin(r";.*output\h*=\h*false", block.language)
     if occursin(r"^# output$"m, block.code) && occursin(r";.*output\h*=\h*false", block.language)
         @show "identified output = false statement"
         @show block.code
